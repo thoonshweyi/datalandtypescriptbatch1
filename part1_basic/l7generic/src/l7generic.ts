@@ -200,3 +200,35 @@ const userset:Set<User> = new Set([
 ])
 userset.add({id:4,name:"Hla Hla",age:16});
 console.log(userset);
+
+// => keyof, extends
+type VipUser = {
+     id:number;
+     name:string;
+     email:string;
+}
+// type VipClient = typeof VipUser;
+type VipCustomer = keyof VipUser; // Extracts keys as a union type: 'id' | 'name' | 'email'
+
+// exe
+const shop = {
+     name: 'Apple Store',
+     city: "Yangon"
+}
+type Vendor = typeof shop;
+type VendorKeys = keyof Vendor; // "name" | "city"
+
+let store:Vendor = {
+     name: "Cherry Store",
+     city: "Mandalay"
+}
+console.log(store);
+
+function getshopinfo<T,K extends keyof T>(obj:T,info:K):T[K]{
+     return obj[info];
+}
+let shopname = getshopinfo(store,'name');
+console.log(shopname); // Cherry Store
+
+let shopcity = getshopinfo(store,'city');
+console.log(shopcity); // Mandalay
