@@ -68,4 +68,22 @@ const staffObj1 = new Staff("Su Su");
 const staffObj2 = new Staff("Yu Yu");
 const staffObj3 = new Staff("Nu Nu");
 Staff.showtotal();
-// 18ST
+// => Exercise 4 
+class Employee {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    // instance method
+    intro() {
+        console.log(`I\'m ${this.name} and I\'m ${this.age} years old.`);
+    }
+    // static method 
+    static agefilter(age) {
+        return age >= 18;
+    }
+}
+const employeeObj = new Employee("Hnin Hnin", 20);
+employeeObj.intro();
+console.log(Employee.agefilter(25));
+console.log(Employee.agefilter(17));

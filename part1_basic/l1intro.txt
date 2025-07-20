@@ -40,8 +40,7 @@ let score:number = 50;
 https://www.typescriptlang.org/
 
 -------------------------------------------------------------
-
-=>Install Typescript Globally (Ubuntu, MAC, Window)0
+=>Install Nodejs
 node -v 
 npm -v
 
@@ -53,6 +52,9 @@ https://github.com/npm-sh/nvm
 
 Windows 
 https://nodejs.org/en
+
+=>Install Typescript Globally 
+=>Install (Ubuntu, MAC, Window)
 
 https://www.typescriptlang.org/download/
 
