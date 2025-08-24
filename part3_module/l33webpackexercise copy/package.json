@@ -1,0 +1,21 @@
+{
+  "name": "l31recommendedsettings",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "watch" : "tsc -w",
+    "webpack": "webpack",
+    "dev": "webpack serve"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.10",
+    "ts-loader": "^9.5.4",
+    "typescript": "^5.9.2",
+    "webpack": "^5.101.3",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
+  }
+}

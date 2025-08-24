@@ -1,0 +1,105 @@
+npm init (continue enter)
+
+npm install typescript --save-dev
+
+create folder (src)
+create folder (dist)
+create index.html
+
+tsc --init
+
+npm install esmodules-dev-server --save-dev
+
+=edit tsconfig.json
+{
+  "compilerOptions": {
+    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "module": "ES6",                                /* Specify what module code is generated. */
+    "rootDir": "./src",                                  /* Specify the root folder within your source files. */
+    "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
+    "removeComments": false,                           /* Disable emitting comments. */
+    "noEmitOnError": true,                            /* Disable emitting files if any type checking errors are reported. */
+    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
+    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    "strict": true,                                      /* Enable all strict type-checking options. */                  /* Skip type checking .d.ts files that are included with TypeScript. */
+    "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
+  }
+}
+--------------------------------------------
+=> Recommended typescript config
+    (i) install
+    https://github.com/tsconfig/bases
+    npm install --save-dev @tsconfig/recommended
+
+    (ii) Add to your tsconfig.json
+      "extends": "@tsconfig/recommended/tsconfig.json"
+--------------------------------------------
+=> Webpack (ver: 5)
+    (i) Install (webpack 5)
+    https://webpack.js.org/ > Documentation > Guides > Getting Started (Basic Setup) > npm install webpack webpack-cli --save-dev
+    
+    https://webpack.js.org/ > Documentation > Guides > Development > Using webpack-dev-server > npm install --save-dev webpack-dev-server
+
+    https://webpack.js.org/ > Documentation > Guides > TypeScript > npm install --save-dev typescript ts-loader
+
+    (ii) create webpack.config.js
+        https://webpack.js.org/ > Documentation >  Guides > TypeScript >
+          const path = require('path');
+
+          module.exports = {
+            entry: './src/index.ts', 
+            mode: 'development',        // development or production, add this line from (https://webpack.js.org/ > Documentation > Configuration > Mode > Usage)
+            module: {
+              rules: [
+                {
+                  test: /\.tsx?$/,
+                  use: 'ts-loader',
+                  exclude: /node_modules/,
+                },
+              ],
+            },
+            resolve: {
+              extensions: ['.tsx', '.ts', '.js'],
+            },
+            output: {
+              filename: 'bundle.js',
+              path: path.resolve(__dirname, 'dist'), // change to publics
+            },
+          };
+
+    (iii) add devServer config to webpack.config.json
+          https://webpack.js.org/ > Documentation > Configuration > DevServer > 
+
+         devServer: {
+          static: {
+            directory: path.join(__dirname, 'public'),
+          },
+          compress: true,
+          port: 9000,
+        },
+
+    (iv) cnfig package.json
+          "watch" : "tsc -w",
+          "webpack": "webpack",
+          "dev": "webpack serve"
+
+    (v) create public folder
+    (vi) create file public > index.html
+    (vii) <script src="./bundle.js"></script>
+
+=>build
+
+npm run webpack
+
+npm run dev
+npm run watch
+
+
+
+
+
+
+
+
+
+
