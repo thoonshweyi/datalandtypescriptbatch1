@@ -1,0 +1,224 @@
+npm init (continue enter)
+
+npm install typescript --save-dev
+
+create folder (src)
+create folder (dist)
+create index.html
+
+tsc --init
+
+npm install esmodules-dev-server --save-dev
+
+=edit tsconfig.json
+{
+  "compilerOptions": {
+    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "module": "ES6",                                /* Specify what module code is generated. */
+    "rootDir": "./src",                                  /* Specify the root folder within your source files. */
+    "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
+    "removeComments": false,                           /* Disable emitting comments. */
+    "noEmitOnError": true,                            /* Disable emitting files if any type checking errors are reported. */
+    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
+    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    "strict": true,                                      /* Enable all strict type-checking options. */                  /* Skip type checking .d.ts files that are included with TypeScript. */
+    "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
+  }
+}
+--------------------------------------------
+=> Recommended typescript config
+    (i) install
+    https://github.com/tsconfig/bases
+    npm install --save-dev @tsconfig/recommended
+
+    (ii) Add to your tsconfig.json
+      "extends": "@tsconfig/recommended/tsconfig.json"
+--------------------------------------------
+=> Webpack (ver: 5)
+    (i) Install (webpack 5)
+    https://webpack.js.org/ > Documentation > Guides > Getting Started (Basic Setup) > npm install webpack webpack-cli --save-dev
+    
+    https://webpack.js.org/ > Documentation > Guides > Development > Using webpack-dev-server > npm install --save-dev webpack-dev-server
+
+    https://webpack.js.org/ > Documentation > Guides > TypeScript > npm install --save-dev typescript ts-loader
+
+    (ii) create webpack.config.js
+        https://webpack.js.org/ > Documentation >  Guides > TypeScript >
+          const path = require('path');
+
+          module.exports = {
+            entry: './src/index.ts', 
+            mode: 'development',        // development or production, add this line from (https://webpack.js.org/ > Documentation > Configuration > Mode > Usage)
+            module: {
+              rules: [
+                {
+                  test: /\.tsx?$/,
+                  use: 'ts-loader',
+                  exclude: /node_modules/,
+                },
+              ],
+            },
+            resolve: {
+              extensions: ['.tsx', '.ts', '.js'],
+            },
+            output: {
+              filename: 'bundle.js',
+              path: path.resolve(__dirname, 'dist'), // change to publics
+            },
+          };
+
+    (iii) add devServer config to webpack.config.json
+          https://webpack.js.org/ > Documentation > Configuration > DevServer > 
+
+         devServer: {
+          static: {
+            directory: path.join(__dirname, 'public'),
+          },
+          compress: true,
+          port: 9000,
+        },
+
+    (iv) cnfig package.json
+          "watch" : "tsc -w",
+          "webpack": "webpack",
+          "dev": "webpack serve"
+
+    (v) create public folder
+    (vi) create file public > index.html
+    (vii) <script src="./bundle.js"></script>
+
+=>build
+
+npm run dev       // npm run webpack
+npm ru watch
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------
+🔹 What is Webpack?
+
+Webpack is a module bundler.
+Its main job is to take all your project files (JavaScript, CSS, images, etc.), treat them as modules, and bundle them into one (or more) optimized files that the browser can load efficiently.
+
+🔹 The Bundle Process (Step by Step)
+1. Entry
+
+Webpack needs to know where to start bundling.
+
+This is the entry point (usually src/index.js).
+
+From this file, Webpack builds a dependency graph by looking at all import / require statements.
+
+// webpack.config.js
+module.exports = {
+  entry: './src/index.js',
+};
+
+
+👉 Example: If index.js imports app.js and style.css, Webpack includes them in the graph.
+
+2. Dependency Graph
+
+Webpack analyzes your code.
+
+Whenever it sees import or require, it follows that file.
+
+It recursively collects all the dependencies into a graph (like a tree).
+
+👉 This graph ensures Webpack knows what depends on what.
+
+3. Loaders
+
+Browsers can only understand JavaScript, HTML, and CSS, not other formats (like TypeScript, JSX, SCSS, images, etc.).
+
+Loaders let Webpack transform these files into valid modules.
+
+Examples:
+
+babel-loader → transpile modern JS/React (ES6+ → ES5)
+
+css-loader → allow importing CSS
+
+style-loader → injects CSS into the DOM
+
+file-loader / url-loader → handle images and fonts
+
+module.exports = {
+  module: {
+    rules: [
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+    ],
+  },
+};
+
+
+👉 So when Webpack encounters a .css file, it runs it through these loaders.
+
+4. Plugins
+
+Plugins extend Webpack’s functionality beyond file transformation.
+
+Example plugins:
+
+HtmlWebpackPlugin → automatically injects bundles into index.html
+
+MiniCssExtractPlugin → extracts CSS into separate files
+
+CleanWebpackPlugin → cleans old builds before bundling
+
+👉 Loaders = transform files
+👉 Plugins = perform broader tasks
+
+5. Output
+
+After building the dependency graph and applying loaders/plugins, Webpack bundles everything into one or more files.
+
+These are placed in the output directory (e.g., dist/).
+
+module.exports = {
+  output: {
+    filename: 'bundle.js',
+    path: __dirname + '/dist',
+  },
+};
+
+6. Optimization
+
+Webpack optimizes your bundle:
+
+Minification (remove whitespace, shorten variable names)
+
+Tree Shaking (remove unused code)
+
+Code Splitting (split into multiple smaller bundles for performance)
+
+Caching (add hash to filenames for browser cache)
+
+7. Serve / Deploy
+
+In development, you often use webpack-dev-server for live reloading.
+
+In production, you deploy the optimized dist/ folder to a server/CDN.
+
+🔹 ***********Visual Summary***********
+
+Entry → Webpack starts from index.js
+
+Dependency Graph → collects all imports/requires
+
+Loaders → transform files (TS → JS, SCSS → CSS, etc.)
+
+Plugins → enhance functionality (HTML, CSS extraction, cleaning)
+
+Output → bundles everything into dist/bundle.js
+
+Optimization → minify, split, tree-shake
+
+Serve → run locally or deploy
