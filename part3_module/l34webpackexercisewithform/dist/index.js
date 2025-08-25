@@ -1,2 +1,32 @@
-import { greeting } from "./components/app";
-console.log(greeting());
+import { formData } from "./components/formhandler";
+import "./style.css";
+// method 1
+// const form = document.querySelector("form");
+// if(form){
+//      form.addEventListener("submit",(e)=>{
+//           e.preventDefault();
+//           console.log("hello");
+//      })
+// }
+// Error 'form' is possibly 'null'
+// method 2
+// const form = document.querySelector("form")!; // trust me. i'm sure this won't be null at runtime
+// form.addEventListener("submit",(e)=>{
+//      e.preventDefault();
+//      console.log("hello123");
+// })
+// method 3
+// const form = document.querySelector("form"); 
+// form?.addEventListener("submit",(e)=>{
+//      e.preventDefault();
+//      console.log("hello444");
+// })
+// method 4
+const form = document.querySelector("form");
+form === null || form === void 0 ? void 0 : form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!form)
+        return; // safety guard
+    const datas = formData(form);
+    console.log("Form Data: ", datas);
+});

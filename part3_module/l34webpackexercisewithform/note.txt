@@ -95,11 +95,34 @@ npm run dev
 npm run watch
 
 
+------------------------------------------------------------
+=> CSS (css loader)
+	https://www.npmjs.com/package/style-loader
+	https://www.npmjs.com/package/css-loader
+
+	=>Install
+		npm install --save-dev style-loader
+		npm install --save-dev css-loader
+
+		or
+
+		npm install --save-dev style-loader css-loader
+
+	=>webpack.config.js
+		module.exports = {
+			module: {
+				rules: [
+				{
+					test: /\.css$/i,
+					use: ["style-loader", "css-loader"],
+				},
+				],
+			},
+		};
 
 
-
-
-
+	=>component.js
+		import "./style.css";
 
 
 
