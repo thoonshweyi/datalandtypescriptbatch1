@@ -47,6 +47,20 @@ class PostService {
             return response.data;
         });
     }
+    // update post
+    updatePost(id, updatePost) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield this.api.put(`/posts/${id}`, updatePost);
+            return response.data;
+        });
+    }
+    // delete post
+    deletePost(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield this.api.delete(`/posts/${id}`);
+            return `Post with ID ${id} deleted successfully`;
+        });
+    }
 }
 exports.PostService = PostService;
 // interface Post{
@@ -55,12 +69,20 @@ exports.PostService = PostService;
 //      title: string,
 //      body: string
 // }
+// => Omit
 // type PostWithoutId = Omit<Post,"id">
 // type PostWithoutId{
 //      userId: number,
 //      title: string,
 //      body: string
 // }
+// => Partisal + Omit
+// type PostWithoutId{
+//      userId?: number,
+//      title?: string,
+//      body?: string
+// }
+// -------------------------------------------------------------
 // 1️⃣ What type is response.data really?
 // const response = await axios.get<Post[]>(this.baseURL);
 // axios.get<Post[]>() returns Promise<AxiosResponse<Post[]>>

@@ -42,8 +42,20 @@ export class PostService{
           return response.data;
      }
 
+     // update post
+     async updatePost(id:number,updatePost:Partial<Omit<Post,"id">>):Promise<Post>{
+          const response = await this.api.put<Post>(`/posts/${id}`,updatePost);
+          return response.data;
+     }
+
+     // delete post
+     async deletePost(id:number):Promise<string>{
+          const response = await this.api.delete(`/posts/${id}`);
+          return `Post with ID ${id} deleted successfully`;
+     }
 
 }
+
 
 // interface Post{
 //      id: number,
@@ -51,6 +63,8 @@ export class PostService{
 //      title: string,
 //      body: string
 // }
+
+// => Omit
 
 // type PostWithoutId = Omit<Post,"id">
 
@@ -60,6 +74,16 @@ export class PostService{
 //      body: string
 // }
 
+// => Partisal + Omit
+
+// type PostWithoutId{
+//      userId?: number,
+//      title?: string,
+//      body?: string
+// }
+
+
+// -------------------------------------------------------------
 // 1️⃣ What type is response.data really?
 // const response = await axios.get<Post[]>(this.baseURL);
 
