@@ -1,3 +1,4 @@
+import {chatMessage} from "./Chatroom";
 export class MessageUI{
 
     private ul:HTMLElement;
@@ -12,7 +13,7 @@ export class MessageUI{
 
 
     // render li
-    renderli(dataobj):void{
+    renderli(dataobj:chatMessage):void{
 
         // console.log(dataobj);
 
@@ -27,31 +28,4 @@ export class MessageUI{
 
         this.ul.innerHTML += htmllitag; 
     }
-
-    userInfo(data){
-
-        console.log(data);
-
-        const uid = data.uid;
-        const email = data.email;
-        const fullname = data.displayName;
-        const photourl = data.photoURL;
-        const createdtime = data.metadata.creationTime;
-
-        // cdn
-        const formatteddate = dateFns.format(new Date(createdtime),"dd MMM yyyy");
-
-        const html = `
-            <li class="list-group-item"><img src="${photourl}" width="50" alt="Profile Picture" /></li>
-            <li class="list-group-item">UID : ${uid}</li>
-            <li class="list-group-item">Display Name : ${fullname}</li>
-            <li class="list-group-item">Email : ${email}</li>
-            <li class="list-group-item">Created At : ${createdtime}</li>
-        `;
-
-        this.ul.innerHTML = html;
-    }
-
 }
-
-

@@ -1,7 +1,7 @@
-import {db} from "./firebaseconfig";
-import {collection,addDoc,onSnapshot,Timestamp,query,where,orderBy} from "firebase/firestore";
+import {db} from "./firebaseConfig";
+import {collection,addDoc,onSnapshot,Timestamp,query,where,orderBy,Unsubscribe} from "firebase/firestore";
 
-interface chatMessage{
+export interface chatMessage{
     message:string;
     username:string;
     room:string;
@@ -12,7 +12,8 @@ export class Chatroom{
 
     private room:string;
     private username:string;
-    private unsubscribe:null = null;
+    // private unsubscribe:null | (()=>void) = null;
+    private unsubscribe:null | Unsubscribe = null;
 
     private chats= collection(db,"chats");
 
