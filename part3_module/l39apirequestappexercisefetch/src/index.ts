@@ -1,4 +1,4 @@
-import {PostService} from "./PostService";
+import {PostService} from "./PostService.js";
 
 async function main(){
      const postserviceObj = new PostService();

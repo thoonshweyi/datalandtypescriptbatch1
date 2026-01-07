@@ -18,3 +18,8 @@ npx tsc --init
 
      import fetch from 'node-fetch';
 -------------------------------------------
+=>Install firebase
+     console > project overview > Project settings
+
+     npm install firebase
+-------------------------------------------

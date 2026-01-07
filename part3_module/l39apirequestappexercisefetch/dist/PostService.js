@@ -1,5 +1,3 @@
-"use strict";
-// import fetch from 'node-fetch';
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -9,9 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.PostService = void 0;
-class PostService {
+import fetch from 'node-fetch';
+export class PostService {
     constructor() {
         this.baseURL = "https://jsonplaceholder.typicode.com/posts";
     }
@@ -22,9 +19,9 @@ class PostService {
             // console.log(response);
             if (!response.ok)
                 throw new Error("Failed to fetch posts");
-            return response.json();
-            // const data = (await response.json()) as Post[];
-            // return data;
+            // return response.json();
+            const data = (yield response.json());
+            return data;
         });
     }
     // get post by id
@@ -33,9 +30,9 @@ class PostService {
             const response = yield fetch(`${this.baseURL}/${id}`);
             if (!response.ok)
                 throw new Error("Failed to fetch posts");
-            return response.json();
-            // const data = (await response.json()) as Post;
-            // return data;
+            // return response.json();
+            const data = (yield response.json());
+            return data;
         });
     }
     // create post (method 2 id:number)
@@ -48,9 +45,9 @@ class PostService {
             });
             if (!response.ok)
                 throw new Error("Failed to fetch posts");
-            return response.json();
-            // const data = (await response.json()) as Post;
-            // return data;
+            // return response.json();
+            const data = (yield response.json());
+            return data;
         });
     }
     // update post
@@ -63,9 +60,9 @@ class PostService {
             });
             if (!response.ok)
                 throw new Error("Failed to update posts");
-            return response.json();
-            // const data = (await response.json()) as Post;
-            // return data;
+            // return response.json();
+            const data = (yield response.json());
+            return data;
         });
     }
     // delete post
@@ -78,7 +75,6 @@ class PostService {
         });
     }
 }
-exports.PostService = PostService;
 // src/PostService.ts:22:11 - error TS2322: Type 'unknown' is not assignable to type 'Post[]'.
 // စောစောက Typescript အတန်းမှာ
 // အစ်ကို Bypass လုပ်ပြတဲ့နည်းက သုံးလို့ရတယ်နော်

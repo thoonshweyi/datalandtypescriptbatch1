@@ -1,4 +1,4 @@
-// import fetch from 'node-fetch';
+import fetch from 'node-fetch';
 
 interface Post{
      id?: number,
@@ -19,10 +19,10 @@ export class PostService{
           // console.log(response);
 
           if(!response.ok) throw new Error("Failed to fetch posts");
-          
-          return response.json();
-          // const data = (await response.json()) as Post[];
-          // return data;
+          // return response.json();
+
+          const data = (await response.json()) as Post[];
+          return data;
      }
 
       // get post by id
@@ -30,10 +30,10 @@ export class PostService{
           const response = await fetch(`${this.baseURL}/${id}`)
 
           if(!response.ok) throw new Error("Failed to fetch posts");
+          // return response.json();
 
-          return response.json();
-          // const data = (await response.json()) as Post;
-          // return data;
+          const data = (await response.json()) as Post;
+          return data;
      }
 
      // create post (method 2 id:number)
@@ -45,10 +45,10 @@ export class PostService{
           });
 
           if(!response.ok) throw new Error("Failed to fetch posts");
+          // return response.json();
 
-          return response.json();
-          // const data = (await response.json()) as Post;
-          // return data;
+          const data = (await response.json()) as Post;
+          return data;
      }
 
      // update post
@@ -61,10 +61,10 @@ export class PostService{
 
           
           if(!response.ok) throw new Error("Failed to update posts");
+          // return response.json();
 
-          return response.json();
-          // const data = (await response.json()) as Post;
-          // return data;
+          const data = (await response.json()) as Post;
+          return data;
      }
 
      // delete post
