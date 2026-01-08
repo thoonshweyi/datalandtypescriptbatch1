@@ -1,3 +1,12 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import { db } from "./firebaseConfig";
 import { collection, addDoc, onSnapshot, Timestamp, query, where, orderBy } from "firebase/firestore";
 export class Chatroom {
@@ -9,21 +18,23 @@ export class Chatroom {
         this.username = username;
     }
     // create chat message
-    async addChat(message) {
-        const now = new Date();
-        const chatdata = {
-            message,
-            username: this.username,
-            room: this.room,
-            createdAt: Timestamp.fromDate(now)
-        };
-        try {
-            const response = await addDoc(this.chats, chatdata);
-        }
-        catch (err) {
-            console.error("Error adding chate :", err);
-            throw err;
-        }
+    addChat(message) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const now = new Date();
+            const chatdata = {
+                message,
+                username: this.username,
+                room: this.room,
+                createdAt: Timestamp.fromDate(now)
+            };
+            try {
+                const response = yield addDoc(this.chats, chatdata);
+            }
+            catch (err) {
+                console.error("Error adding chate :", err);
+                throw err;
+            }
+        });
     }
     // get chat messages ****
     getChats(callback) {

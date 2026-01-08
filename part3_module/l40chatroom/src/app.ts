@@ -99,4 +99,7 @@ newnameform.addEventListener('submit',(e:Event)=>{
 
 
 
+// npm run webpack
+// npm run dev
 
+// npm run watch

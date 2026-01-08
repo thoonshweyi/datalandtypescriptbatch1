@@ -1,3 +1,12 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import { Chatroom } from "./Chatroom";
 import { MessageUI } from "./MessageUi";
 // get UI
@@ -11,7 +20,7 @@ const username = localStorage.username ? localStorage.username : "Guest";
 const chatroomObj = new Chatroom("general", username);
 const messageuiObj = new MessageUI(chatlistgroup);
 // add new message
-newchatform.addEventListener('submit', async (e) => {
+newchatform.addEventListener('submit', (e) => __awaiter(void 0, void 0, void 0, function* () {
     e.preventDefault();
     const input = newchatform.querySelector("#message");
     const message = input.value.trim();
@@ -19,13 +28,13 @@ newchatform.addEventListener('submit', async (e) => {
     if (!message)
         return;
     try {
-        await chatroomObj.addChat(message);
+        yield chatroomObj.addChat(message);
         newchatform.reset();
     }
     catch (err) {
         console.error(err);
     }
-});
+}));
 // change chat room
 chatsidebar.addEventListener('click', (e) => {
     const target = e.target;
@@ -63,3 +72,6 @@ newnameform.addEventListener('submit', (e) => {
     updatemsg.innerText = `Your name was update to ${newname}`;
     setTimeout(() => updatemsg.innerText = '', 3000);
 });
+// npm run webpack
+// npm run dev
+// npm run watch

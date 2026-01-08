@@ -23,3 +23,100 @@ npx tsc --init
 
      npm install firebase
 -------------------------------------------
+--------------------------------------------
+=> Webpack (ver: 5)
+    (i) Install (webpack 5)
+    https://webpack.js.org/ > Documentation > Guides > Getting Started (Basic Setup) > npm install webpack webpack-cli --save-dev
+    
+    https://webpack.js.org/ > Documentation > Guides > Development > Using webpack-dev-server > npm install --save-dev webpack-dev-server
+
+    https://webpack.js.org/ > Documentation > Guides > TypeScript > npm install --save-dev typescript ts-loader
+
+    (ii) create webpack.config.js
+        https://webpack.js.org/ > Documentation >  Guides > TypeScript >
+          const path = require('path');
+
+          module.exports = {
+            entry: './src/index.ts', 
+            mode: 'development',        // development or production, add this line from (https://webpack.js.org/ > Documentation > Configuration > Mode > Usage)
+            module: {
+              rules: [
+                {
+                  test: /\.tsx?$/,
+                  use: 'ts-loader',
+                  exclude: /node_modules/,
+                },
+              ],
+            },
+            resolve: {
+              extensions: ['.tsx', '.ts', '.js'],
+            },
+            output: {
+              filename: 'bundle.js',
+              path: path.resolve(__dirname, 'dist'), // change to publics
+            },
+          };
+
+    (iii) add devServer config to webpack.config.json
+          https://webpack.js.org/ > Documentation > Configuration > DevServer > 
+
+         devServer: {
+          static: {
+            directory: path.join(__dirname, 'public'),
+          },
+          compress: true,
+          port: 9000,
+        },
+
+    (iv) cnfig package.json
+          "watch" : "tsc -w",
+          "webpack": "webpack",
+          "dev": "webpack serve"
+
+    (v) create public folder
+    (vi) create file public > index.html
+    (vii) <script src="./bundle.js"></script>
+
+=>build
+
+npm run webpack
+npm run dev
+
+npm run watch
+
+
+------------------------------------------------------------
+=> CSS (css loader)
+	https://www.npmjs.com/package/style-loader
+	https://www.npmjs.com/package/css-loader
+
+	=>Install
+		npm install --save-dev style-loader
+		npm install --save-dev css-loader
+
+		or
+
+		npm install --save-dev style-loader css-loader
+
+	=>webpack.config.js
+		module.exports = {
+			module: {
+				rules: [
+				{
+					test: /\.css$/i,
+					use: ["style-loader", "css-loader"],
+				},
+				],
+			},
+		};
+
+
+	=>component.js
+		import "./style.css";
+
+
+------------------------------------------------------------
+=>Install date-fns
+
+  https://date-fns.org/
+  npm install date-fns --save
