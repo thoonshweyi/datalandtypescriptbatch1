@@ -1,0 +1,65 @@
+import {formatDistance} from 'date-fns'
+import {chatMessage} from "./Chatroom";
+
+export class MessageUI{
+
+    private ul:HTMLElement;
+    constructor(ul:HTMLElement){
+        this.ul = ul
+    }
+
+    // clear li 
+    clearli():void{
+        this.ul.innerHTML = "";
+    }
+
+
+    // render li
+    renderli(dataobj:chatMessage):void{
+
+        // console.log(dataobj);
+
+        // for cdn
+        // const when = (window as any).dateFns.formatDistance(dataobj.createdAt.toDate(),new Date(),{addSuffix:true}); // {addSuffix:true} = ago
+        
+        // for package
+        const when = formatDistance(dataobj.createdAt.toDate(),new Date(),{addSuffix:true}); // {addSuffix:true} = ago
+         
+        const htmllitag = `
+            <li class="list-group-item">
+                <span class="username">${dataobj.username}</span>
+                <span class="message">${dataobj.message}</span>
+                <span class="time small text-muted">${when}</span>
+            </li>
+        `;
+
+        this.ul.innerHTML += htmllitag; 
+    }
+
+    userInfo(data):void{
+
+        console.log(data);
+
+        const uid:string = data.uid;
+        const email:string = data.email;
+        const fullname:string = data.displayName;
+        const photourl:string = data.photoURL;
+        const createdtime:string = data.metadata.creationTime;
+
+        // cdn
+        // const formatteddate = dateFns.format(new Date(createdtime),"dd MMM yyyy");
+
+        const formatteddate = createdtime;
+        
+        const html = `
+            <li class="list-group-item"><img src="${photourl}" width="50" alt="Profile Picture" /></li>
+            <li class="list-group-item">UID : ${uid}</li>
+            <li class="list-group-item">Display Name : ${fullname}</li>
+            <li class="list-group-item">Email : ${email}</li>
+            <li class="list-group-item">Created At : ${formatteddate}</li>
+        `;
+
+        this.ul.innerHTML = html;
+    }
+
+}
