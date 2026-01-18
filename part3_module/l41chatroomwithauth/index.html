@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="./css/style.css" rel="stylesheet" type="text/css" />
     <title>Chat Room</title>
+    <script src="./dist/authcheck.js" type="module"></script>
 </head>
 <body class="bg-light">
 
@@ -38,7 +39,7 @@
 
             <!-- header  -->
              <header class="border-bottom d-flex justify-content-between align-items-center p-3 chat-headers">
-                <h4 class="m-0"><i class="fa-solid fa-message"></i> Chat Box - <span class="roomtitle"></span></h4>
+                <h4 class="m-0"><i class="fa-solid fa-message"></i> Chat Box - <span id="roomtitle">general</span></h4>
              
                 <!-- profile button dropdown  -->
                  <div class="dropdown">
@@ -82,10 +83,7 @@
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/cdn.min.js"></script>
-    
-    <script src="./dist/bundle.js" type="module"></script>
-    <!-- <script src="./dist/app.js" type="module"></script> -->
+    <script src="./dist/app.js" type="module"></script>
 
 </body>
 </html>

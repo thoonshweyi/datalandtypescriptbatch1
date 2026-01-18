@@ -25,13 +25,15 @@ const updatemsg = document.querySelector<HTMLElement>(".update-msg");
 const newnameform = document.querySelector<HTMLFormElement>(".new-nameform");
 const chatlistgroup = document.querySelector<HTMLElement>(".chat-lists");
 const newchatform = document.querySelector<HTMLFormElement>(".new-chatform");
+const profilename = document.querySelector<HTMLElement>("#profilename");
+const roomtitle = document.querySelector<HTMLElement>("#roomtitle");
 
-if(!chatsidebar || !updatemsg || !newnameform || !chatlistgroup || !newchatform){
+if(!chatsidebar || !updatemsg || !newnameform || !chatlistgroup || !newchatform || !profilename || !roomtitle){
     throw new Error("One ore more required DOM elements are missing.");
 }
 
 const username = localStorage.username ? localStorage.username : "Guest";
-
+profilename.textContent = username;
 // instance Chatroom obj & MesssageUI
 const chatroomObj = new Chatroom("general",username);
 const messageuiObj = new MessageUI(chatlistgroup);
@@ -90,12 +92,16 @@ chatsidebar.addEventListener('click',(e:Event)=>{
     if(!getbutton) return;
 
     messageuiObj.clearli();
+    // console.log("Cleared");
 
     const roomid = getbutton.getAttribute('id');
     if(!roomid) return;
     if(roomid){
         chatroomObj.updateRoom(roomid);
         chatroomObj.getChats((data)=>messageuiObj.renderli(data));
+
+        // room title
+        roomtitle.textContent = roomid;
     }
 
 
@@ -142,6 +148,17 @@ newnameform.addEventListener('submit',(e:Event)=>{
 
     updatemsg.innerText = `Your name was update to ${newname}`;
     setTimeout(()=>updatemsg.innerText='',3000);
+
+    profilename.textContent = newname;
+
+    // switch to general_foom
+
+    messageuiObj.clearli();
+    chatroomObj.updateRoom(chatroomObj.getroom());
+    chatroomObj.getChats((data)=>messageuiObj.renderli(data));
+
+     // room title
+    roomtitle.textContent = chatroomObj.getroom();
 });
 
 

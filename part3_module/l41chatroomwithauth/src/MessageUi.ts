@@ -1,6 +1,6 @@
-import {formatDistance} from 'date-fns'
+import {formatDistance,format} from 'date-fns'
 import {chatMessage} from "./Chatroom";
-
+import {User} from "firebase/auth";
 export class MessageUI{
 
     private ul:HTMLElement;
@@ -36,20 +36,20 @@ export class MessageUI{
         this.ul.innerHTML += htmllitag; 
     }
 
-    userInfo(data):void{
+    userInfo(data:User):void{
 
         console.log(data);
 
         const uid:string = data.uid;
-        const email:string = data.email;
-        const fullname:string = data.displayName;
-        const photourl:string = data.photoURL;
-        const createdtime:string = data.metadata.creationTime;
+        const email:string = data.email ?? "No Email";
+        const fullname:string = data.displayName ?? "Anonymous";
+        const photourl:string = data.photoURL ?? "https://static.thenounproject.com/png/65476-200.png";
+        const createdtime:string = data.metadata.creationTime ?? "Unknown";
 
         // cdn
-        // const formatteddate = dateFns.format(new Date(createdtime),"dd MMM yyyy");
+        const formatteddate = createdtime !== 'Unknown' ?  format(new Date(createdtime),"dd MMM yyyy") : createdtime;
 
-        const formatteddate = createdtime;
+        // const formatteddate = createdtime;
         
         const html = `
             <li class="list-group-item"><img src="${photourl}" width="50" alt="Profile Picture" /></li>

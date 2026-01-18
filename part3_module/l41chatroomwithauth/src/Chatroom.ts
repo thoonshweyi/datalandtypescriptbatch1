@@ -23,6 +23,10 @@ export class Chatroom{
         this.username = username;
     }
 
+    public getroom(){
+        return this.room;
+    }
+
     // Helper: get a readable error message from unknown
     private getErrorMessage(error:unknown):string{
         if(error instanceof Error){
